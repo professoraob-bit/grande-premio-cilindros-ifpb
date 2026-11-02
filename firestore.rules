@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /corridas_cilindros/{codigo} {
+      allow create: if request.auth != null
+        && request.auth.token.firebase.sign_in_provider == 'password'
+        && request.resource.data.professorUid == request.auth.uid;
+      allow read: if request.auth != null;
+      allow update, delete: if request.auth != null
+        && resource.data.professorUid == request.auth.uid;
+
+      match /participantes/{uid} {
+        allow create: if request.auth != null
+          && request.auth.token.firebase.sign_in_provider == 'anonymous'
+          && request.auth.uid == uid
+          && get(/databases/$(database)/documents/corridas_cilindros/$(codigo)).data.status == 'aguardando'
+          && request.resource.data.nome is string
+          && request.resource.data.nome.size() > 0
+          && request.resource.data.nome.size() <= 32;
+        allow read: if request.auth != null;
+        allow update: if request.auth != null
+          && request.auth.uid == uid
+          && get(/databases/$(database)/documents/corridas_cilindros/$(codigo)).data.status == 'correndo';
+        allow delete: if request.auth != null
+          && get(/databases/$(database)/documents/corridas_cilindros/$(codigo)).data.professorUid == request.auth.uid;
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10283f">
+  <title>Grande Prêmio dos Cilindros | IFPB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topline"></div>
+  <header class="site-header">
+    <div class="brand-mark">IFPB</div>
+    <div class="brand-text"><strong>INSTITUTO FEDERAL DA PARAÍBA</strong><span>Campus João Pessoa · Geometria Espacial</span></div>
+    <a class="teacher-link" href="professor.html">Área do professor ↗</a>
+  </header>
+  <main class="page-shell">
+    <section id="joinView" class="hero-grid">
+      <div class="intro-panel">
+        <div class="eyebrow"><span class="live-dot"></span> DESAFIO DE GEOMETRIA ESPACIAL</div>
+        <h1>GRANDE PRÊMIO<br><em>DOS CILINDROS</em></h1>
+        <p class="lead">Calcule, acelere e cruze a linha de chegada. Cada resposta correta coloca seu carro mais perto da vitória.</p>
+        <div class="hero-tags"><span>10 desafios · 8º ano</span><span>Corrida ao vivo</span><span>Raciocínio + velocidade</span></div>
+        <div class="race-art" aria-hidden="true">
+          <div class="sun"></div><div class="track"><div class="track-line"></div><div class="finish-line"></div><div class="race-car car-one"><span></span></div><div class="race-car car-two"><span></span></div></div>
+          <div class="cylinder-art"><div class="cyl-top"></div><div class="cyl-side"></div><div class="cyl-bottom"></div></div>
+          <div class="art-label">π · r² · h</div>
+        </div>
+      </div>
+      <div class="join-card">
+        <div class="card-kicker">ENTRADA NA CORRIDA</div>
+        <h2>Preparado para largar?</h2>
+        <p class="muted">Informe o código da sala fornecido pelo professor.</p>
+        <form id="joinForm">
+          <label for="roomCode">Código da corrida</label>
+          <input id="roomCode" name="roomCode" maxlength="6" placeholder="EX.: 8K4P2Q" autocomplete="off" required>
+          <label for="playerName">Seu nome</label>
+          <input id="playerName" name="playerName" maxlength="32" placeholder="Digite seu nome" required>
+          <label for="playerGroup">Turma / grupo</label>
+          <select id="playerGroup" required>
+            <option value="8º ano" selected>8º ano</option>
+          </select>
+          <button class="btn btn-primary btn-block" type="submit" id="joinBtn">ENTRAR NA PISTA <span>→</span></button>
+          <div class="form-message" id="joinMessage" role="status"></div>
+        </form>
+        <div class="rules-mini"><strong>Como funciona</strong><span>✓ Acerte para avançar</span><span>⚡ Responda rápido para ganhar turbo</span><span>🏁 Complete os 10 desafios e dispute o pódio</span></div>
+      </div>
+    </section>
+
+    <section id="waitingView" class="game-layout hidden">
+      <div class="game-main panel">
+        <div class="status-row"><span class="status-pill waiting" id="raceStatus">AGUARDANDO LARGADA</span><span class="room-chip">SALA <b id="roomCodeDisplay">------</b></span></div>
+        <h2 class="section-title">A pista está quase cheia.</h2>
+        <p class="muted">Quando o professor iniciar a corrida, o primeiro desafio aparecerá automaticamente.</p>
+        <div class="start-lights"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="waiting-note">Confira seu nome no placar e aguarde o sinal verde.</div>
+      </div>
+      <aside class="leader-panel panel"><div class="panel-heading"><div><span class="card-kicker">GRID DE LARGADA</span><h3>Participantes</h3></div><span class="count-pill" id="playerCount">0</span></div><div id="waitingLeaderboard" class="leader-list"></div></aside>
+    </section>
+
+    <section id="raceView" class="game-layout hidden">
+      <div class="game-main panel">
+        <div class="status-row"><span class="status-pill live" id="liveStatus"><span class="live-dot"></span> CORRIDA AO VIVO</span><span class="room-chip">SALA <b id="raceCodeDisplay">------</b></span></div>
+        <div class="race-progress-head"><div><span class="card-kicker">SEU PROGRESSO</span><h2 id="playerMeters">0 <small>m</small></h2></div><div class="question-count"><strong id="questionNumber">01</strong><span>/ 10 DESAFIOS</span></div></div>
+        <div class="meter-track"><div class="meter-fill" id="meterFill"></div><div class="meter-finish">🏁</div></div>
+        <div class="question-card" id="questionCard">
+          <div class="question-meta"><span id="questionTopic">ÁREA E VOLUME</span><span id="timerBadge">⏱ 00:00</span></div>
+          <h2 id="questionText">Carregando desafio...</h2>
+          <div id="questionVisual" class="question-visual hidden"></div>
+          <div id="answerOptions" class="answer-options"></div>
+          <div id="answerFeedback" class="answer-feedback" aria-live="polite"></div>
+        </div>
+        <div class="race-tip"><span>💡</span><span id="raceTip">Use π = 3,14. Confira as unidades antes de responder.</span></div>
+      </div>
+      <aside class="leader-panel panel"><div class="panel-heading"><div><span class="card-kicker">CLASSIFICAÇÃO</span><h3>Quem está na frente?</h3></div><span class="live-mini">AO VIVO</span></div><div id="raceLeaderboard" class="leader-list"></div><div class="score-legend"><span>🚗 Distância</span><span>⚡ Bônus de velocidade</span></div></aside>
+    </section>
+
+    <section id="resultView" class="result-wrap hidden">
+      <div class="result-card panel">
+        <div class="trophy">🏆</div><div class="eyebrow centered">BANDEIRADA FINAL</div><h2 id="resultTitle">Corrida concluída!</h2><p id="resultSubtitle" class="muted">Seu desempenho foi registrado.</p>
+        <div class="result-stats"><div><strong id="finalCorrect">0/10</strong><span>ACERTOS</span></div><div><strong id="finalMeters">0 m</strong><span>DISTÂNCIA</span></div><div><strong id="finalXp">0 XP</strong><span>PONTOS</span></div></div>
+        <div class="finish-banner" id="finishBanner">Parabéns por completar a corrida!</div>
+        <h3>Classificação da sala</h3><div id="finalLeaderboard" class="leader-list"></div>
+        <p class="muted tiny">A pontuação é recreativa e serve como registro de desempenho da atividade.</p>
+      </div>
+    </section>
+    <footer class="page-footer"><span>GEOMETRIA ESPACIAL · ESTUDO DOS CILINDROS</span><span>Professor Arthur Oliveira Barbosa</span></footer>
+  </main>
+  <script type="module" src="js/student.js"></script>
+</body>
+</html>
