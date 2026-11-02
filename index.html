@@ -32,10 +32,8 @@
       <div class="join-card">
         <div class="card-kicker">ENTRADA NA CORRIDA</div>
         <h2>Preparado para largar?</h2>
-        <p class="muted">Informe o código da sala fornecido pelo professor.</p>
+        <p class="muted">Informe seu nome e sua turma. A corrida aberta pelo professor será localizada automaticamente.</p>
         <form id="joinForm">
-          <label for="roomCode">Código da corrida</label>
-          <input id="roomCode" name="roomCode" maxlength="6" placeholder="EX.: 8K4P2Q" autocomplete="off" required>
           <label for="playerName">Seu nome</label>
           <input id="playerName" name="playerName" maxlength="32" placeholder="Digite seu nome" required>
           <label for="playerGroup">Turma / grupo</label>
@@ -51,7 +49,7 @@
 
     <section id="waitingView" class="game-layout hidden">
       <div class="game-main panel">
-        <div class="status-row"><span class="status-pill waiting" id="raceStatus">AGUARDANDO LARGADA</span><span class="room-chip">SALA <b id="roomCodeDisplay">------</b></span></div>
+        <div class="status-row"><span class="status-pill waiting" id="raceStatus">AGUARDANDO LARGADA</span><span class="room-chip">ACESSO DIRETO</span></div>
         <h2 class="section-title">A pista está quase cheia.</h2>
         <p class="muted">Quando o professor iniciar a corrida, o primeiro desafio aparecerá automaticamente.</p>
         <div class="start-lights"><span></span><span></span><span></span><span></span><span></span></div>
@@ -62,7 +60,7 @@
 
     <section id="raceView" class="game-layout hidden">
       <div class="game-main panel">
-        <div class="status-row"><span class="status-pill live" id="liveStatus"><span class="live-dot"></span> CORRIDA AO VIVO</span><span class="room-chip">SALA <b id="raceCodeDisplay">------</b></span></div>
+        <div class="status-row"><span class="status-pill live" id="liveStatus"><span class="live-dot"></span> CORRIDA AO VIVO</span><span class="room-chip">CORRIDA ATIVA</span></div>
         <div class="race-progress-head"><div><span class="card-kicker">SEU PROGRESSO</span><h2 id="playerMeters">0 <small>m</small></h2></div><div class="question-count"><strong id="questionNumber">01</strong><span>/ 10 DESAFIOS</span></div></div>
         <div class="meter-track" id="raceTrack" aria-label="Pista da corrida"><div class="meter-fill" id="meterFill"></div><div class="player-car-marker" id="playerCarMarker" aria-label="Seu carrinho na pista">🏎️</div><div class="meter-finish">🏁</div></div><div class="meter-captions"><span>LARGADA</span><span>CHEGADA · 150 m</span></div>
         <div class="question-card" id="questionCard">
