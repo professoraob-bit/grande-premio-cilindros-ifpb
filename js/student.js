@@ -125,6 +125,8 @@ function renderRace() {
   const index = getCurrentQuestionIndex();
   const question = questions[index];
   $('questionNumber').textContent = String(Math.min(index + 1, TOTAL_QUESTIONS)).padStart(2, '0');
+  // Exibe o enunciado do desafio; sem esta atribuição o cabeçalho ficava preso em "Carregando desafio...".
+  $('questionText').textContent = question?.question || 'Enunciado indisponível. Atualize a página e tente novamente.';
   $('questionTopic').textContent = `${playerData.emRevisao ? 'REVISÃO · ' : ''}${question?.topic || 'DESAFIO'}`;
   $('answerFeedback').textContent = '';
   $('answerFeedback').className = 'answer-feedback';
