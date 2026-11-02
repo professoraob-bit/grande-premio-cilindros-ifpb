@@ -1,7 +1,7 @@
 import {
   auth, db, firebaseIsConfigured,
   signInWithEmailAndPassword, onAuthStateChanged, signOut,
-  collection, doc, getDocs, setDoc, updateDoc, deleteDoc, writeBatch,
+  collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, writeBatch,
   onSnapshot, query, where, serverTimestamp
 } from './firebase.js';
 
