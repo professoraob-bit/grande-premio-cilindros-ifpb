@@ -45,7 +45,7 @@
           <button class="btn btn-primary btn-block" type="submit" id="joinBtn">ENTRAR NA PISTA <span>→</span></button>
           <div class="form-message" id="joinMessage" role="status"></div>
         </form>
-        <div class="rules-mini"><strong>Como funciona</strong><span>✓ Acerte para avançar</span><span>⚡ Responda rápido para ganhar turbo</span><span>🏁 Complete os 10 desafios e dispute o pódio</span></div>
+        <div class="rules-mini"><strong>Como funciona</strong><span>✓ Cada acerto faz seu carrinho avançar</span><span>↩ Errou? A questão volta depois do 10º desafio</span><span>⚡ Até 30 s: +5 pontos · até 60 s: +3 · até 90 s: +1</span><span>🏁 Resolva os 10 desafios para cruzar a chegada</span></div>
       </div>
     </section>
 
@@ -64,7 +64,7 @@
       <div class="game-main panel">
         <div class="status-row"><span class="status-pill live" id="liveStatus"><span class="live-dot"></span> CORRIDA AO VIVO</span><span class="room-chip">SALA <b id="raceCodeDisplay">------</b></span></div>
         <div class="race-progress-head"><div><span class="card-kicker">SEU PROGRESSO</span><h2 id="playerMeters">0 <small>m</small></h2></div><div class="question-count"><strong id="questionNumber">01</strong><span>/ 10 DESAFIOS</span></div></div>
-        <div class="meter-track"><div class="meter-fill" id="meterFill"></div><div class="meter-finish">🏁</div></div>
+        <div class="meter-track" id="raceTrack" aria-label="Pista da corrida"><div class="meter-fill" id="meterFill"></div><div class="player-car-marker" id="playerCarMarker" aria-label="Seu carrinho na pista">🏎️</div><div class="meter-finish">🏁</div></div><div class="meter-captions"><span>LARGADA</span><span>CHEGADA · 150 m</span></div>
         <div class="question-card" id="questionCard">
           <div class="question-meta"><span id="questionTopic">ÁREA E VOLUME</span><span id="timerBadge">⏱ 00:00</span></div>
           <h2 id="questionText">Carregando desafio...</h2>
