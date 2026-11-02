@@ -93,7 +93,6 @@ function sortPlayers(players) {
 
 function renderWaiting() {
   showView('waiting');
-  $('roomCodeDisplay').textContent = roomCode;
   $('playerCount').textContent = latestPlayers.length;
   rankList($('waitingLeaderboard'), sortPlayers(latestPlayers));
 }
@@ -114,7 +113,6 @@ function renderRace() {
   }
 
   showView('race');
-  $('raceCodeDisplay').textContent = roomCode;
   $('playerMeters').innerHTML = `${playerData.metros || 0} <small>m</small>`;
 
   const progress = progressPercent(playerData);
@@ -353,20 +351,32 @@ $('joinForm').addEventListener('submit', async event => {
     msg('O Firebase ainda não foi configurado nesta aplicação.');
     return;
   }
-  const code = $('roomCode').value.trim().toUpperCase();
   const name = $('playerName').value.trim();
   const group = $('playerGroup').value;
-  if (!code || !name) return;
+  if (!name) return;
   $('joinBtn').disabled = true;
-  msg('Conectando à sala...');
+  msg('Localizando a corrida aberta pelo professor...');
 
   try {
     const credential = await signInAnonymously(auth);
     playerUid = credential.user.uid;
+
+    // A página do aluno usa sempre o endereço fixo. O código interno da sala
+    // é descoberto pelo documento configuracoes/corrida_ativa no Firestore.
+    const activeRoomSnapshot = await getDoc(doc(db, 'configuracoes', 'corrida_ativa'));
+    if (!activeRoomSnapshot.exists()) {
+      throw new Error('O professor ainda não abriu uma corrida. Aguarde e tente novamente.');
+    }
+    const activeRoomData = activeRoomSnapshot.data();
+    const code = String(activeRoomData.codigo || '').trim().toUpperCase();
+    if (!code) {
+      throw new Error('Não há uma corrida aberta no momento. Aguarde o professor iniciar uma nova rodada.');
+    }
+
     roomCode = code;
     const roomRef = doc(db, 'corridas_cilindros', roomCode);
     const roomSnapshot = await getDoc(roomRef);
-    if (!roomSnapshot.exists()) throw new Error('Código de sala não encontrado.');
+    if (!roomSnapshot.exists()) throw new Error('A corrida ativa não foi encontrada. Avise o professor.');
     roomData = roomSnapshot.data();
     if (roomData.status !== 'aguardando') throw new Error('A corrida já começou ou foi encerrada. Peça ao professor uma nova sala.');
     if (roomData.turma && group !== roomData.turma) throw new Error(`Esta sala foi criada para ${roomData.turma}. Selecione essa turma para entrar.`);
@@ -401,8 +411,6 @@ $('joinForm').addEventListener('submit', async event => {
   }
 });
 
-const params = new URLSearchParams(location.search);
-if (params.get('sala')) $('roomCode').value = params.get('sala').toUpperCase();
 if (!firebaseIsConfigured) {
   msg('Configuração pendente: o professor precisa configurar o novo projeto Firebase antes de abrir a sala.');
   $('joinBtn').disabled = true;

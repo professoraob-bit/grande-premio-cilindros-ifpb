@@ -46,7 +46,7 @@ function renderRooms(docs) {
     <article class="panel room-admin" data-code="${id}" style="margin-bottom:15px">
       <div class="status-row">
         <div>
-          <span class="card-kicker">SALA ${id}</span>
+          <span class="card-kicker">RODADA INTERNA · ${id}</span>
           <h3 style="font:800 25px 'Barlow Condensed';margin:4px 0">${esc(d.titulo || 'Corrida dos Cilindros')}</h3>
           <p class="muted">${esc(d.turma || '')} · ${statusLabel(d.status)}</p>
         </div>
@@ -55,7 +55,7 @@ function renderRooms(docs) {
       <div class="admin-actions" style="display:flex;gap:8px;flex-wrap:wrap;margin:14px 0">
         <button class="btn btn-primary start-room" data-code="${id}" ${d.status !== 'aguardando' ? 'disabled' : ''}>▶ INICIAR CORRIDA</button>
         <button class="btn end-room" data-code="${id}" style="background:#fff0e8;color:#a94f2d" ${d.status !== 'correndo' ? 'disabled' : ''}>ENCERRAR</button>
-        <button class="btn copy-room" data-code="${id}" style="background:#edf2f1;color:#244252">COPIAR LINK</button>
+        <button class="btn copy-room" data-code="${id}" style="background:#edf2f1;color:#244252">COPIAR LINK PERMANENTE</button>
         <button class="btn export-room" data-code="${id}" style="background:#edf2f1;color:#244252">EXPORTAR CSV</button>
         <button class="btn delete-room" data-code="${id}" data-status="${esc(d.status || '')}"
           style="background:#fff0f0;color:#a52626;border:1px solid #f0cccc"
@@ -161,6 +161,17 @@ async function deleteRoom(code, status) {
     const batch = writeBatch(db);
     participantsSnapshot.docs.forEach(participant => batch.delete(participant.ref));
     batch.delete(doc(db, 'corridas_cilindros', code));
+
+    // Se a sala excluída era a rodada ativa, limpa o ponteiro do link fixo.
+    const activeRef = doc(db, 'configuracoes', 'corrida_ativa');
+    const activeSnapshot = await getDoc(activeRef);
+    if (activeSnapshot.exists() && activeSnapshot.data().codigo === code) {
+      batch.set(activeRef, {
+        codigo: null,
+        professorUid: auth.currentUser.uid,
+        atualizadoEm: serverTimestamp()
+      }, { merge: true });
+    }
     await batch.commit();
 
     const unsubscribe = roomListeners.get(code);
@@ -173,8 +184,9 @@ async function deleteRoom(code, status) {
   }
 }
 
-function linkFor(code) {
-  return `${location.origin}${location.pathname.replace('professor.html', 'index.html')}?sala=${code}`;
+function linkFor(_code) {
+  // Um único endereço permanente para todas as rodadas.
+  return new URL('index.html', location.href).href;
 }
 
 async function copyRoom(code) {
@@ -232,7 +244,11 @@ $('createRoomBtn').onclick = async () => {
     const code = Array.from(crypto.getRandomValues(new Uint8Array(4)))
       .map(value => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[value % 32]).join('');
     const title = $('raceTitle').value.trim() || 'Corrida dos Cilindros';
-    await setDoc(doc(db, 'corridas_cilindros', code), {
+    const roomRef = doc(db, 'corridas_cilindros', code);
+    const activeRef = doc(db, 'configuracoes', 'corrida_ativa');
+    const batch = writeBatch(db);
+
+    batch.set(roomRef, {
       codigo: code,
       titulo: title,
       turma: group,
@@ -247,11 +263,21 @@ $('createRoomBtn').onclick = async () => {
       totalQuestoes: 10,
       linhaChegada: 150
     });
+
+    // Atualiza o destino do link permanente para a nova rodada.
+    batch.set(activeRef, {
+      codigo: code,
+      professorUid: auth.currentUser.uid,
+      atualizadoEm: serverTimestamp()
+    });
+
+    await batch.commit();
+
     createdLink = linkFor(code);
     $('newRoomCode').textContent = code;
     $('newRoomLink').textContent = createdLink;
     $('createdRoom').classList.remove('hidden');
-    $('createMessage').textContent = 'Sala criada. Compartilhe o código ou o link com os participantes.';
+    $('createMessage').textContent = 'Nova rodada aberta. Os alunos podem entrar pelo link permanente, informando apenas nome e turma.';
   } catch (error) {
     $('createMessage').textContent = 'Erro ao criar sala: ' + error.message;
   } finally {
