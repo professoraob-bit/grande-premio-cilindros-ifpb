@@ -1,12 +1,89 @@
+// Banco atualizado — cilindros | 8º ano
+// Convenção desta atividade: utilize π = 3 em todos os cálculos.
 export const questions = [
- {topic:"ELEMENTOS DO CILINDRO",question:"Uma lata de milho tem formato cilíndrico. Quais figuras geométricas representam suas duas bases?",options:["Dois triângulos","Dois círculos","Dois retângulos","Dois quadrados"],correct:1,explain:"As bases de um cilindro circular reto são dois círculos congruentes e paralelos."},
- {topic:"RAIO E DIÂMETRO",question:"Um cilindro possui raio de 4 cm. Qual é a medida do diâmetro da base?",options:["2 cm","4 cm","8 cm","16 cm"],correct:2,explain:"O diâmetro é o dobro do raio: d = 2 × 4 = 8 cm."},
- {topic:"DIMENSÕES",question:"Qual alternativa explica corretamente a diferença entre raio e altura de um cilindro?",options:["O raio mede a distância do centro da base até sua borda; a altura é a distância perpendicular entre as duas bases.","O raio é a distância entre as bases; a altura mede a borda do círculo.","Raio e altura sempre possuem a mesma medida.","O raio mede a lateral do cilindro e a altura mede o diâmetro."],correct:0,explain:"O raio pertence à base circular. A altura mede a separação perpendicular entre as bases."},
- {topic:"ÁREA TOTAL",question:"Considere π = 3,14. Um cilindro tem raio de 3 cm e altura de 8 cm. Qual é sua área total? Use At = 2πr² + 2πrh.",options:["150,72 cm²","178,98 cm²","207,24 cm²","226,08 cm²"],correct:2,explain:"At = 2 × 3,14 × 3² + 2 × 3,14 × 3 × 8 = 56,52 + 150,72 = 207,24 cm²."},
- {topic:"VOLUME",question:"Um recipiente cilíndrico possui raio de 5 cm e altura de 10 cm. Considerando π = 3,14, qual é o volume?",options:["157 cm³","314 cm³","628 cm³","785 cm³"],correct:3,explain:"V = πr²h = 3,14 × 5² × 10 = 785 cm³."},
- {topic:"ÁREA LATERAL",question:"Um cilindro possui raio de 2 cm e altura de 12 cm. Qual é a área lateral? Use Al = 2πrh e π = 3,14.",options:["75,36 cm²","150,72 cm²","175,84 cm²","301,44 cm²"],correct:1,explain:"Al = 2 × 3,14 × 2 × 12 = 150,72 cm²."},
- {topic:"A LATA DE REFRIGERANTE",question:"Uma lata cilíndrica tem raio de 3 cm e altura de 10 cm. Qual é a área lateral correspondente à superfície do rótulo? Considere π = 3,14.",options:["28,26 cm²","94,20 cm²","188,40 cm²","282,60 cm²"],correct:2,explain:"O rótulo cobre a área lateral: Al = 2 × 3,14 × 3 × 10 = 188,40 cm²."},
- {topic:"CAPACIDADE",question:"Uma caixa-d'água cilíndrica tem raio de 1 m e altura de 2 m. Considerando π = 3,14 e que 1 m³ equivale a 1.000 litros, qual é sua capacidade?",options:["628 litros","2.000 litros","3.140 litros","6.280 litros"],correct:3,explain:"V = 3,14 × 1² × 2 = 6,28 m³. Em litros: 6,28 × 1.000 = 6.280 L."},
- {topic:"COMPARAÇÃO DE VOLUMES",question:"Dois cilindros têm a mesma altura de 8 cm. O cilindro A tem raio de 2 cm e o B tem raio de 4 cm. Quantas vezes o volume de B é maior que o de A?",options:["Duas vezes","Quatro vezes","Oito vezes","Dezesseis vezes"],correct:1,explain:"Ao dobrar o raio, r² fica quatro vezes maior. Como a altura não mudou, o volume de B é quatro vezes o de A."},
- {topic:"DESAFIO FINAL · INVESTIGAÇÃO",question:"Dois cilindros têm o mesmo volume: A tem raio 2 cm e altura 16 cm; B tem raio 4 cm e altura 4 cm. Qual afirmação sobre as áreas laterais está correta? Use π = 3,14.",options:["A área lateral de A é o dobro da área lateral de B.","A área lateral de B é o dobro da área lateral de A.","As áreas laterais são iguais.","Não é possível comparar as áreas laterais."],correct:0,explain:"Al(A) = 2 × 3,14 × 2 × 16 = 200,96 cm². Al(B) = 2 × 3,14 × 4 × 4 = 100,48 cm². A área lateral de A é o dobro."}
+  {
+    topic: "ELEMENTOS DO CILINDRO",
+    question: "Uma lata de milho tem formato cilíndrico. Quais figuras geométricas representam suas duas bases?",
+    options: ["Dois triângulos", "Dois círculos", "Dois retângulos", "Dois quadrados"],
+    correct: 1,
+    explain: "As bases de um cilindro circular reto são dois círculos iguais e paralelos."
+  },
+  {
+    topic: "RAIO E DIÂMETRO",
+    question: "Um cilindro possui raio de 4 cm. Qual é o diâmetro de sua base?",
+    options: ["2 cm", "4 cm", "8 cm", "16 cm"],
+    correct: 2,
+    explain: "O diâmetro corresponde ao dobro do raio: d = 2 × 4 = 8 cm."
+  },
+  {
+    topic: "DIMENSÕES DO CILINDRO",
+    question: "Qual alternativa explica corretamente a diferença entre o raio e a altura de um cilindro?",
+    options: [
+      "O raio vai do centro até a borda da base; a altura é a distância perpendicular entre as duas bases.",
+      "O raio é a distância entre as bases; a altura mede a borda do círculo.",
+      "Raio e altura sempre possuem a mesma medida.",
+      "O raio mede a lateral do cilindro e a altura mede o diâmetro."
+    ],
+    correct: 0,
+    explain: "O raio é uma medida do círculo da base. A altura mede a distância perpendicular entre as bases."
+  },
+  {
+    topic: "DESAFIO INVERSO · ENCONTRE A ALTURA",
+    question: "Um cilindro tem volume de 216 cm³ e raio de 3 cm. Qual é sua altura? Considere π = 3 e use V = π · r² · h.",
+    options: ["6 cm", "8 cm", "9 cm", "12 cm"],
+    correct: 1,
+    explain: "216 = 3 × 3² × h; 216 = 27h; portanto, h = 216 ÷ 27 = 8 cm."
+  },
+  {
+    topic: "DESAFIO INVERSO · ENCONTRE O RAIO",
+    question: "Um cilindro possui volume de 300 cm³ e altura de 4 cm. Considerando π = 3, qual é o raio da base e qual é seu diâmetro?",
+    options: [
+      "Raio de 5 cm e diâmetro de 10 cm.",
+      "Raio de 10 cm e diâmetro de 20 cm.",
+      "Raio de 4 cm e diâmetro de 8 cm.",
+      "Raio de 25 cm e diâmetro de 50 cm."
+    ],
+    correct: 0,
+    explain: "300 = 3 × r² × 4; 300 = 12r²; r² = 25; r = 5 cm. O diâmetro é 2 × 5 = 10 cm."
+  },
+  {
+    topic: "ÁREA DA BASE",
+    question: "A base de um cilindro tem raio de 4 cm. Qual é a área de uma base? Considere π = 3 e use Ab = π · r².",
+    options: ["12 cm²", "24 cm²", "48 cm²", "64 cm²"],
+    correct: 2,
+    explain: "Ab = 3 × 4² = 3 × 16 = 48 cm²."
+  },
+  {
+    topic: "ÁREA LATERAL",
+    question: "Uma embalagem cilíndrica tem raio de 3 cm e altura de 10 cm. Qual é a área lateral, correspondente à parte que receberá o rótulo? Considere π = 3 e use Al = 2 · π · r · h.",
+    options: ["90 cm²", "180 cm²", "270 cm²", "360 cm²"],
+    correct: 1,
+    explain: "Al = 2 × 3 × 3 × 10 = 180 cm²."
+  },
+  {
+    topic: "ÁREA TOTAL",
+    question: "Um cilindro possui raio de 2 cm e altura de 5 cm. Considerando π = 3, qual é sua área total? Use At = 2 · Ab + Al.",
+    options: ["72 cm²", "60 cm²", "96 cm²", "84 cm²"],
+    correct: 3,
+    explain: "Ab = 3 × 2² = 12 cm². Al = 2 × 3 × 2 × 5 = 60 cm². At = 2 × 12 + 60 = 84 cm²."
+  },
+  {
+    topic: "VOLUME · APLICAÇÃO",
+    question: "Um recipiente cilíndrico tem raio de 3 cm e altura de 4 cm. Qual é seu volume? Considere π = 3.",
+    options: ["36 cm³", "72 cm³", "108 cm³", "144 cm³"],
+    correct: 2,
+    explain: "V = 3 × 3² × 4 = 3 × 9 × 4 = 108 cm³."
+  },
+  {
+    topic: "DESAFIO FINAL · COMPARAÇÃO DE ÁREAS",
+    question: "Dois cilindros têm estas medidas: A possui raio de 2 cm e altura de 12 cm; B possui raio de 4 cm e altura de 6 cm. Considerando π = 3, o que acontece com as áreas laterais?",
+    options: [
+      "A área lateral de A é o dobro da área lateral de B.",
+      "A área lateral de B é o dobro da área lateral de A.",
+      "As áreas laterais são iguais: 144 cm² cada uma.",
+      "Não é possível comparar as áreas laterais com as medidas fornecidas."
+    ],
+    correct: 2,
+    explain: "Al(A) = 2 × 3 × 2 × 12 = 144 cm². Al(B) = 2 × 3 × 4 × 6 = 144 cm². As áreas laterais são iguais."
+  }
 ];
